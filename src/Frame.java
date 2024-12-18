@@ -23,6 +23,10 @@ import java.util.*;
 
 public class Frame extends JPanel implements ActionListener, MouseListener, KeyListener {
 
+    static int width = 800;
+    static int height = 600;
+
+
     public void paint(Graphics g) {
         super.paintComponent(g);
     }
@@ -36,7 +40,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
     public Frame() {
 
         JFrame f = new JFrame("j nation");
-        f.setSize(new Dimension(800, 600));
+        f.setSize(new Dimension(width, height));
         f.setBackground(Color.white);
         f.add(this);
         f.setResizable(false);
