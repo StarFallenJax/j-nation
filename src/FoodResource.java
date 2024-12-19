@@ -1,6 +1,7 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
@@ -21,10 +22,10 @@ public class FoodResource {
 
     public FoodResource(){
 
-        defaultState = getImage("/imgs/"+"image.png");  //Load the image
+        defaultState = getImage("/imgs/"+"FoodResource.jpg");  //Load the image
 
-        width = 40;                                     //hitbox
-        height = 50;                                    //hitbox
+        width = 162;                                     //hitbox
+        height = 122;                                    //hitbox
 
         //top left location of image
         x = Frame.width/2 - width/2;
@@ -35,7 +36,7 @@ public class FoodResource {
         tx = AffineTransform.getTranslateInstance(0,0);
 
         init(x, y);        //initialize the location of the image
-                           //use your variables
+
 
 
 
@@ -111,6 +112,28 @@ public class FoodResource {
         this.vx = vx;
     }
 
+
+
+    public void drawHitBox(Graphics g){
+        g.drawRect(x, y, width, height);
+    }
+
+    public boolean isCursorInside(int cursorX, int cursorY) {
+        // Represent the hitbox as a rectangle
+        Rectangle rectHitbox = new Rectangle(
+                this.x,
+                this.y,
+                this.width,
+                this.height
+        );
+
+        // Check if the cursor is inside the hitbox
+        if (rectHitbox.contains(cursorX, cursorY)) {
+            return true;
+        }
+
+        return false;
+    }
 
 
 
