@@ -12,16 +12,16 @@ public class WoodResource {
     int width, height;                                  //Used for hitbox, AKA collision detection code
     int x, y;                                           //Position of the object
     int vx, vy;                                         //Movement variables
-    double scaleWidth = 0.05;                           //Change to scale image
-    double scaleHeight = 0.05;                          //Change to scale image
+    double scaleWidth = 0.03;                           //Change to scale image
+    double scaleHeight = 0.03;                          //Change to scale image
 
 
     public WoodResource(){
 
         defaultState = getImage("/imgs/"+"WoodResource.jpg");  //Load the image
 
-        width = 300;                                     //hitbox
-        height = 200;                                    //hitbox
+        width = 180;                                     //hitbox
+        height = 120;                                    //hitbox
 
         //top left location of image
         x = Frame.width/2 - width/2;
