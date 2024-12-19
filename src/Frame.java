@@ -53,8 +53,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
         if(debug) {
             food.drawHitBox(g);                                                           //Draws the hitbox for debugging purposes
             wood.drawHitBox(g);                                                           //Draws the hitbox for debugging purposes
-            g.drawRect(mouseLeftPos - 10, mouseTopPos - 30, 2, 2);      //Draws a small rectangle at the mouse position for debugging purposes
-            g.drawString("DEBUG MODE", 900, 20);
+            g.drawRect(mouseLeftPos - 10, mouseTopPos - 30, 2, 2);                //Draws a small rectangle at the mouse position for debugging purposes
+            g.drawString("DEBUG MODE", 900, 20);                                          //Displays "DEBUG MODE" in the top right corner of the screen for debugging
 
 
         }
