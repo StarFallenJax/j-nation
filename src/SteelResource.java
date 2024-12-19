@@ -24,8 +24,8 @@ public class SteelResource {
         height = 119;                                    //hitbox
 
         //top left location of image
-        x = Frame.width/2 - width/2;
-        y = Frame.height - height*2;
+        x = GameFrame.width/2 - width/2;
+        y = GameFrame.height - height*2;
         vx = 0;
         vy = 0;
 
@@ -58,7 +58,7 @@ public class SteelResource {
                 break;
         }
 
-        if(x > Frame.width){
+        if(x > GameFrame.width){
 
             x = -width;
 

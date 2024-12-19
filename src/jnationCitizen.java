@@ -12,8 +12,8 @@ public class jnationCitizen {
     int width, height;                                  //Used for hitbox, AKA collision detection code
     int x, y;                                           //Position of the object
     int vx, vy;                                         //Movement variables
-    double scaleWidth = 0.5;                           //Change to scale image
-    double scaleHeight = 0.5;                          //Change to scale image
+    double scaleWidth = 0.5;                            //Change to scale image
+    double scaleHeight = 0.5;                           //Change to scale image
 
 
     public jnationCitizen(){
@@ -24,8 +24,8 @@ public class jnationCitizen {
         height = 122;                                    //hitbox
 
         //top left location of image
-        x = Frame.width/2 - width/2;
-        y = Frame.height - height*2;
+        x = GameFrame.width/2 - width/2;
+        y = GameFrame.height - height*2;
         vx = 0;
         vy = 0;
 
@@ -58,7 +58,7 @@ public class jnationCitizen {
                 break;
         }
 
-        if(x > Frame.width){
+        if(x > GameFrame.width){
 
             x = -width;
 
