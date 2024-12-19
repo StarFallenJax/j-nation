@@ -21,6 +21,13 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
     private Rectangle createHouseButton;
     private boolean showContextMenu = false;
 
+    private int citizenPrice = 50;
+    private int housingPriceWood = 50;
+    private int housingPriceStone = 25;
+
+
+
+
     private boolean showCreateHouseContextMenu = false;
     private int contextMenuHeight = 5; // Adjust this height to fit your menu
 
@@ -100,7 +107,7 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
         citizenIcon.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         // Check if there is enough food and set color accordingly
-        if (foodResourceCounter >= 50 && houseCounter >= 1) {
+        if (foodResourceCounter >= citizenPrice && houseCounter >= 1) {
             g2d.setColor(Color.BLACK);  // Normal color if enough food
         } else {
             g2d.setColor(Color.GRAY);   // Grey color if not enough food
@@ -119,16 +126,26 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
         if (showContextMenu) {
             g.setColor(Color.WHITE);
             g.fillRect(90, 645, 180, 5); // Draw background for context menu
+
             g.setColor(Color.BLACK);
-            g.drawString("Cost: 50      food", 100, 660); // Show the cost
-            foodIcon2.paint(g); // Show the food icon again with cost
+            String priceText = "Cost: " + citizenPrice + " food";
+            g.drawString(priceText, 100, 660); // Show the cost
+
+            // Measure the width of the price text
+            FontMetrics metrics = g.getFontMetrics(g.getFont());
+            int priceTextWidth = metrics.stringWidth(priceText);
+
+            // Adjust the food icon's position based on the text width
+            int foodIconX = 100 + priceTextWidth; // Add padding after the text
+            foodIcon2.setPost(foodIconX, 640); // Update the icon's position dynamically
+            foodIcon2.paint(g); // Draw the food icon
         }
 
 
         // Draw housing purchases
         houseIcon.paint(g);
         // Check if there is enough resources and set color accordingly
-        if (woodResourceCounter >= 50 && stoneResourceCounter >= 50) {
+        if (woodResourceCounter >= housingPriceWood && stoneResourceCounter >= housingPriceStone) {
             g2d.setColor(Color.BLACK);  // Normal color if enough resources
         } else {
             g2d.setColor(Color.GRAY);   // Grey color if not enough resouces
@@ -147,13 +164,34 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
         // Draw the "create housing" context menu if needed
         if (showCreateHouseContextMenu) {
             g.setColor(Color.WHITE);
-            g.fillRect(510, 645, 150, 5);  // Adjust the size and position
-            g.setColor(Color.BLACK);
-            g.drawString("Cost: 50      wood", 490 + 10, 625 + 20);
-            g.drawString("          50      stone", 490 + 10, 625 + 40);
-            woodIcon2.paint(g); // Show the food icon again with cost
-            stoneIcon2.paint(g); // Show the food icon again with cost
+            g.fillRect(510, 645, 150, 5); // Draw background for context menu
 
+            g.setColor(Color.BLACK);
+            String woodPriceText = "Cost: "+housingPriceWood+" wood";
+            String stonePriceText = "          "+housingPriceStone+" stone";
+
+            // Draw wood cost
+            g.drawString(woodPriceText, 520, 640);
+
+            // Measure the width of the wood cost text
+            FontMetrics metrics = g.getFontMetrics(g.getFont());
+            int woodPriceTextWidth = metrics.stringWidth(woodPriceText);
+
+            // Adjust the wood icon's position based on the text width
+            int woodIconX = 520 + woodPriceTextWidth; // Add padding after the text
+            woodIcon2.setPost(woodIconX, 615); // Update the icon's position dynamically
+            woodIcon2.paint(g);
+
+            // Draw stone cost
+            g.drawString(stonePriceText, 520, 660);
+
+            // Measure the width of the stone cost text
+            int stonePriceTextWidth = metrics.stringWidth(stonePriceText);
+
+            // Adjust the stone icon's position based on the text width
+            int stoneIconX = 520 + stonePriceTextWidth; // Add padding after the text
+            stoneIcon2.setPost(stoneIconX, 640); // Update the icon's position dynamically
+            stoneIcon2.paint(g);
         }
 
 
@@ -214,12 +252,13 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
 
             // Check if the click is inside the "create citizen" rectangle
             if (createCitizenButton != null && createCitizenButton.contains(mouseLeftPos, mouseTopPos)) {
-                if (foodResourceCounter >= 50 && houseCounter >= 1) {
+                if (foodResourceCounter >= citizenPrice && houseCounter >= 1) {
                     System.out.println("Create Citizen Button Clicked!");
                     // Add logic to create a citizen
                     citizens.add(new jnationCitizen(100, 100));
                     jNationCitizenCounter++;
-                    foodResourceCounter -= 50;
+                    citizenPrice *= 1.15;
+                    foodResourceCounter -= citizenPrice;
                     houseCounter -= 1;
                 }
             }
@@ -227,11 +266,13 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
 
             // Check if the click is inside the "creating housing" rectangle
             if (createHouseButton != null && createHouseButton.contains(mouseLeftPos, mouseTopPos)) {
-                if (woodResourceCounter >= 50 && stoneResourceCounter >= 50) {
+                if (woodResourceCounter >= housingPriceWood && stoneResourceCounter >= housingPriceStone) {
                     System.out.println("Create Housing Button Clicked!");
                     houseCounter++;
-                    woodResourceCounter -= 50;
-                    stoneResourceCounter -= 50;
+                    housingPriceStone *= 1.15;
+                    housingPriceWood *= 1.15;
+                    woodResourceCounter -= housingPriceWood;
+                    stoneResourceCounter -= housingPriceStone;
                 }
             }
 
@@ -245,6 +286,12 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_F1) {
             debug = !debug; // Toggle debug mode
+        }
+        if (e.getKeyCode() == KeyEvent.VK_F2 && debug) {
+            foodResourceCounter += 10000;
+            woodResourceCounter += 10000;
+            stoneResourceCounter += 10000;
+            steelResourceCounter += 10000;
         }
     }
 
