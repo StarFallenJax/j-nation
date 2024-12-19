@@ -12,13 +12,13 @@ public class jnationCitizen {
     int width, height;                                  //Used for hitbox, AKA collision detection code
     int x, y;                                           //Position of the object
     int vx, vy;                                         //Movement variables
-    double scaleWidth = 0.05;                           //Change to scale image
-    double scaleHeight = 0.05;                          //Change to scale image
+    double scaleWidth = 0.5;                           //Change to scale image
+    double scaleHeight = 0.5;                          //Change to scale image
 
 
     public jnationCitizen(){
 
-        defaultState = getImage("/imgs/"+"jnationCitzen.jpg");  //Load the image
+        defaultState = getImage("/imgs/"+"CitizenResource.jpg");  //Load the image
 
         width = 162;                                     //hitbox
         height = 122;                                    //hitbox
