@@ -8,7 +8,7 @@ import java.net.URL;
 
 public class FoodResource {
 
-    private Image defaultState;
+    private Image defaultState,iconState;
     private AffineTransform tx;
 
     //Attributes of a FoodResource object
@@ -23,6 +23,7 @@ public class FoodResource {
     public FoodResource(){
 
         defaultState = getImage("/imgs/"+"FoodResource.jpg");  //Load the image
+        iconState = getImage("/imgs/"+"food.png");  //Load the image
 
         width = 162;                                     //hitbox
         height = 122;                                    //hitbox
@@ -43,6 +44,22 @@ public class FoodResource {
 
     }
 
+    public FoodResource(int x, int y, int width, int height, double scaleHeight, double scaleWidth, int dir){
+        //Set this object's attributes
+        this(); //Invokes the default constructor
+
+        //this.x specifies the x attribute of this class, NOT param of this constructor
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.scaleHeight = scaleHeight;
+        this.scaleWidth = scaleWidth;
+        this.dir = dir;
+
+
+    }
+
     public void paint(Graphics g){
 
         Graphics2D g2 = (Graphics2D) g;
@@ -58,7 +75,7 @@ public class FoodResource {
                 g2.drawImage(defaultState,tx,null);
                 break;
             case 1:
-                g2.drawImage(defaultState,tx,null);
+                g2.drawImage(iconState,tx,null);
                 break;
         }
 

@@ -79,6 +79,22 @@ public class Housing {
 
     }
 
+    public Housing(int x, int y, int width, int height, double scaleHeight, double scaleWidth, int dir){
+        //Set this object's attributes
+        this(); //Invokes the default constructor
+
+        //this.x specifies the x attribute of this class, NOT param of this constructor
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.scaleHeight = scaleHeight;
+        this.scaleWidth = scaleWidth;
+        this.dir = dir;
+
+
+    }
+
     public int getX(){
         return x;
     }

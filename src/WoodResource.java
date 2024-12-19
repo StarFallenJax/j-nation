@@ -4,7 +4,7 @@ import java.net.URL;
 
 public class WoodResource {
 
-    private Image defaultState;
+    private Image defaultState,iconState;
     private AffineTransform tx;
 
     //Attributes of a FoodResource object
@@ -19,6 +19,8 @@ public class WoodResource {
     public WoodResource(){
 
         defaultState = getImage("/imgs/"+"WoodResource.jpg");  //Load the image
+        iconState = getImage("/imgs/"+"wood.png");  //Load the image
+
 
         width = 180;                                     //hitbox
         height = 120;                                    //hitbox
@@ -54,7 +56,7 @@ public class WoodResource {
                 g2.drawImage(defaultState,tx,null);
                 break;
             case 1:
-                g2.drawImage(defaultState,tx,null);
+                g2.drawImage(iconState,tx,null);
                 break;
         }
 
@@ -78,6 +80,23 @@ public class WoodResource {
 
 
     }
+
+    public WoodResource(int x, int y, int width, int height, double scaleHeight, double scaleWidth, int dir){
+        //Set this object's attributes
+        this(); //Invokes the default constructor
+
+        //this.x specifies the x attribute of this class, NOT param of this constructor
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.scaleHeight = scaleHeight;
+        this.scaleWidth = scaleWidth;
+        this.dir = dir;
+
+
+    }
+
 
     public int getX(){
         return x;

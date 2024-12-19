@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class GameFrame extends JPanel implements ActionListener, MouseListener, KeyListener {
+public class GameFrame extends JPanel implements ActionListener, MouseListener, KeyListener, MouseMotionListener{
 
     static int width = 1080;
     static int height = 720;
@@ -19,6 +19,10 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
     private int houseCounter = 0;
     private Rectangle createCitizenButton;
     private Rectangle createHouseButton;
+    private boolean showContextMenu = false;
+
+    private boolean showCreateHouseContextMenu = false;
+    private int contextMenuHeight = 5; // Adjust this height to fit your menu
 
 
     Font myFont = new Font("Serif", Font.BOLD, 20);
@@ -29,6 +33,21 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
     StoneResource stone = new StoneResource(width / 4 + 75, height / 8);
     SteelResource steel = new SteelResource(775, height / 8);
 
+
+    FoodResource foodIcon = new FoodResource(3,0,162,122,0.4,0.4,1);
+    WoodResource woodIcon = new WoodResource(3,18,162,122,0.4,0.4,1);
+    StoneResource stoneIcon = new StoneResource(3,40,162,122,0.4,0.4,1);
+    SteelResource steelIcon = new SteelResource(3,60,162,122,0.4,0.4,1);
+
+
+    FoodResource foodIcon2 = new FoodResource(170,640,162,122,0.4,0.4,1);
+    WoodResource woodIcon2 = new WoodResource(570,620,162,122,0.4,0.4,1);
+    StoneResource stoneIcon2 = new StoneResource(570,645,162,122,0.4,0.4,1);
+    SteelResource steelIcon2 = new SteelResource(3,60,162,122,0.4,0.4,1);
+
+
+
+
     // Citizens
     jnationCitizen citizenIcon = new jnationCitizen(50, 660);
     Housing houseIcon = new Housing(460,660);
@@ -38,7 +57,7 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.WHITE);
         setLayout(null); // Use null layout for absolute positioning
-
+        addMouseMotionListener(this); // Add MouseMotionListener to detect hover
         addMouseListener(this);
         addKeyListener(this);
         setFocusable(true);
@@ -52,13 +71,17 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        foodIcon.paint(g);
+        steelIcon.paint(g);
+        stoneIcon.paint(g);
+        woodIcon.paint(g);
         // Display counters
         g.setFont(myFont);
         g.setColor(Color.BLACK);
-        g.drawString("food available: " + foodResourceCounter, 10, 20);
-        g.drawString("wood available: " + woodResourceCounter, 10, 40);
-        g.drawString("stone available: " + stoneResourceCounter, 10, 60);
-        g.drawString("steel available: " + steelResourceCounter, 10, 80);
+        g.drawString("     food available: " + foodResourceCounter, 10, 20);
+        g.drawString("     wood available: " + woodResourceCounter, 10, 40);
+        g.drawString("     stone available: " + stoneResourceCounter, 10, 60);
+        g.drawString("     steel available: " + steelResourceCounter, 10, 80);
 
         g.setColor(Color.GRAY);
         g.drawString("j nation citizens: " + jNationCitizenCounter, 55, 710);
@@ -88,10 +111,18 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
         // Draw the "create citizen" text
         g2d.drawString("create citizen", 90, 680);
 
+
         // Reset composite to fully opaque after drawing the text
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 
-
+        // Show context menu when hovering over "create citizen"
+        if (showContextMenu) {
+            g.setColor(Color.WHITE);
+            g.fillRect(90, 645, 180, 5); // Draw background for context menu
+            g.setColor(Color.BLACK);
+            g.drawString("Cost: 50      food", 100, 660); // Show the cost
+            foodIcon2.paint(g); // Show the food icon again with cost
+        }
 
 
         // Draw housing purchases
@@ -108,11 +139,22 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
         // Draw the "create citizen" text
         g2d.drawString("create housing", 500, 680);
 
+
         // Reset composite to fully opaque after drawing the text
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 
 
+        // Draw the "create housing" context menu if needed
+        if (showCreateHouseContextMenu) {
+            g.setColor(Color.WHITE);
+            g.fillRect(510, 645, 150, 5);  // Adjust the size and position
+            g.setColor(Color.BLACK);
+            g.drawString("Cost: 50      wood", 490 + 10, 625 + 20);
+            g.drawString("          50      stone", 490 + 10, 625 + 40);
+            woodIcon2.paint(g); // Show the food icon again with cost
+            stoneIcon2.paint(g); // Show the food icon again with cost
 
+        }
 
 
         // Define the clickable area around the create citizen string
@@ -211,6 +253,32 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
         repaint();
     }
 
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // Detect when the mouse hovers over the "create citizen" area
+
+        if (createCitizenButton != null && createCitizenButton.contains(e.getX(), e.getY())) {
+            showContextMenu = true;  // Show context menu
+        } else {
+            showContextMenu = false; //
+        }
+
+        // Check if hovering over the "create housing" string
+        if (createHouseButton != null && createHouseButton.contains(e.getX(), e.getY())) {
+            showCreateHouseContextMenu = true;
+        } else {
+            showCreateHouseContextMenu = false;
+        }
+
+        repaint();  // Trigger a repaint to show or hide the context menus
+
+
+
+
+    }
+
+
+
     // Unused interface methods
     @Override public void mouseClicked(MouseEvent e) {}
     @Override public void mouseEntered(MouseEvent e) {}
@@ -218,4 +286,8 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
     @Override public void mouseReleased(MouseEvent e) {}
     @Override public void keyTyped(KeyEvent e) {}
     @Override public void keyReleased(KeyEvent e) {}
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // Empty implementation (if you don't want to handle dragging)
+    }
 }
