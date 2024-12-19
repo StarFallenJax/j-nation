@@ -47,6 +47,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
     SteelResource steel = new SteelResource(775, height/8);
 
+    jnationCitizen citizen = new jnationCitizen(100, 100);
+
+
+
 
 
 
@@ -57,6 +61,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
         wood.paint(g);
         stone.paint(g);
         steel.paint(g);
+        citizen.paint(g);
+
+
 
         if(debug) {
             food.drawHitBox(g);                                                           //Draws the hitbox for debugging purposes
