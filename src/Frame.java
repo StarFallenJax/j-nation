@@ -33,13 +33,19 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
     private int foodResourceCounter = 0;
     private int woodResourceCounter = 0;
+    private int stoneResourceCounter = 0;
+    private int steelResourceCounter = 0;
 
     Font myFont = new Font("Serif", Font.BOLD, 20);
 
     //Create an instance of the FoodResource class
     FoodResource food = new FoodResource(width/8, height/8);
 
-    WoodResource wood = new WoodResource(width/2, height/8);
+    WoodResource wood = new WoodResource(width/2+10, height/8);
+
+    StoneResource stone = new StoneResource(width/4+75, height/8);
+
+    SteelResource steel = new SteelResource(775, height/8);
 
 
 
@@ -49,10 +55,14 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
         food.paint(g);
         wood.paint(g);
+        stone.paint(g);
+        steel.paint(g);
 
         if(debug) {
             food.drawHitBox(g);                                                           //Draws the hitbox for debugging purposes
             wood.drawHitBox(g);                                                           //Draws the hitbox for debugging purposes
+            stone.drawHitBox(g);                                                          //Draws the hitbox for debugging purposes
+            steel.drawHitBox(g);                                                          //Draws the hitbox for debugging purposes
             g.drawRect(mouseLeftPos - 10, mouseTopPos - 30, 2, 2);                //Draws a small rectangle at the mouse position for debugging purposes
             g.drawString("DEBUG MODE", 900, 20);                                          //Displays "DEBUG MODE" in the top right corner of the screen for debugging
 
@@ -64,6 +74,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
         g.setColor(Color.BLACK);
         g.drawString("Food Resource Counter: " + foodResourceCounter, 10, 20);
         g.drawString("Wood Resource Counter: " + woodResourceCounter, 10, 40);
+        g.drawString("Stone Resource Counter: " + stoneResourceCounter, 10, 60);
+        g.drawString("Steel Resource Counter: " + steelResourceCounter, 10, 80);
 
 
     }
@@ -128,11 +140,32 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
         }
 
+        if(arg0.getButton() == 1 && debug){
+
+            System.out.println("Mouse X: " + arg0.getX() + " Mouse Y: " + arg0.getY());
+
+        }
+
 
         //This is the code that will increment the woodResourceCounter variable every time the user left-clicks on the wood resource.
         if(arg0.getButton() == 1 && wood.isCursorInside(arg0.getX()-10, arg0.getY()-30)){
             woodResourceCounter++;
             System.out.println(woodResourceCounter);
+
+        }
+
+
+        //This is the code that will increment the woodResourceCounter variable every time the user left-clicks on the wood resource.
+        if(arg0.getButton() == 1 && stone.isCursorInside(arg0.getX()-10, arg0.getY()-30)){
+            stoneResourceCounter++;
+            System.out.println(stoneResourceCounter);
+
+        }
+
+        //This is the code that will increment the woodResourceCounter variable every time the user left-clicks on the wood resource.
+        if(arg0.getButton() == 1 && steel.isCursorInside(arg0.getX()-10, arg0.getY()-30)){
+            steelResourceCounter++;
+            System.out.println(steelResourceCounter);
 
         }
 
