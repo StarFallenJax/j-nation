@@ -31,6 +31,7 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
 
     // Citizens
     jnationCitizen citizenIcon = new jnationCitizen(50, 660);
+    Housing houseIcon = new Housing(460,660);
     ArrayList<jnationCitizen> citizens = new ArrayList<jnationCitizen>();
 
     public GameFrame() {
@@ -94,7 +95,7 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
 
 
         // Draw housing purchases
-        citizenIcon.paint(g);
+        houseIcon.paint(g);
         // Check if there is enough resources and set color accordingly
         if (woodResourceCounter >= 50 && stoneResourceCounter >= 50) {
             g2d.setColor(Color.BLACK);  // Normal color if enough resources
