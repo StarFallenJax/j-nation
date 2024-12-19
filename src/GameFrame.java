@@ -148,7 +148,7 @@ public class GameFrame extends JPanel implements ActionListener, MouseListener, 
         if (woodResourceCounter >= housingPriceWood && stoneResourceCounter >= housingPriceStone) {
             g2d.setColor(Color.BLACK);  // Normal color if enough resources
         } else {
-            g2d.setColor(Color.GRAY);   // Grey color if not enough resouces
+            g2d.setColor(Color.GRAY);   // Grey color if not enough resources
             // Optional: Reduce alpha for more subtle grey effect (only on text)
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f)); // 50% opacity
         }
